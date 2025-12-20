@@ -66,4 +66,3 @@ namespace XmasGames.HangSanta
         }
     }
 }
-// "Data Source = JONNA;Database=XmasGamesDB;Integrated Security = True;Trust Server Certificate=True;"
