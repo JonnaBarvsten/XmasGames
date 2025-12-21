@@ -1,9 +1,9 @@
 ﻿using Raylib_cs;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using XmasGame;
-using XmasGames.HangSanta;
+using System.Linq;
+using XmasGames;
+using XmasGames.Data;
+using XmasGames.Models;
 
 namespace XmasGame
 {
@@ -11,8 +11,9 @@ namespace XmasGame
     {
         static void Main(string[] args)
         {
-            var game = new StartGame();
-            game.Run();
+            using var context = new XmasGamesDBContext();
+
+            MenuHelper.StartMenu(); 
         }
     }
 }
