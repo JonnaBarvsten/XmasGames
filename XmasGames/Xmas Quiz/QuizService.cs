@@ -130,7 +130,8 @@ namespace XmasGames.Xmas_Quiz
                 if (Raylib.IsKeyPressed(KeyboardKey.Enter))
                     scoreScreen = false;
             }
-            Raylib.CloseWindow();
+            Raylib.WaitTime(3.0f);
+            return;
         }
     }
 }
