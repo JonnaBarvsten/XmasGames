@@ -8,20 +8,20 @@ namespace XmasGames.XmasSnake
 {
     internal class StartSnake
     {
-        public void runSnake() 
+        public void runSnake()
         {
             int screenWidth = 800;
             int screenHeight = 600;
             int gridSize = 20;
 
-            // Spelrutan
+            // Game window
             int gameWidth = 400;
             int gameHeight = 400;
             int gridWidth = gameWidth / gridSize;
             int gridHeight = gameHeight / gridSize;
 
-            int offsetX = 50; // spelrutans x-position
-            int offsetY = 50; // spelrutans y-position
+            int offsetX = 50; // Game window x-position 
+            int offsetY = 50; // Game window y-position
 
             Raylib.InitWindow(screenWidth, screenHeight, "XmasSnake");
             Raylib.SetTargetFPS(10);
@@ -32,7 +32,7 @@ namespace XmasGames.XmasSnake
 
             int score = 0;
 
-            // ===== Skapa snöflingor =====
+            // Create snowflakes
             List<Snowflake> snowflakes = new List<Snowflake>();
             Random rand = new Random();
             for (int i = 0; i < 50; i++)
@@ -42,13 +42,13 @@ namespace XmasGames.XmasSnake
 
             while (!Raylib.WindowShouldClose())
             {
-                // ===== Input =====
+                // Input
                 if (Raylib.IsKeyPressed(Raylib_cs.KeyboardKey.Up)) snake.SetDirection((0, -1));
                 if (Raylib.IsKeyPressed(Raylib_cs.KeyboardKey.Down)) snake.SetDirection((0, 1));
                 if (Raylib.IsKeyPressed(Raylib_cs.KeyboardKey.Left)) snake.SetDirection((-1, 0));
                 if (Raylib.IsKeyPressed(Raylib_cs.KeyboardKey.Right)) snake.SetDirection((1, 0));
 
-                // ===== Kolla nästa steg =====
+                // Next move
                 var nextHead = (snake.Body[0].x + snake.Direction.x, snake.Body[0].y + snake.Direction.y);
                 if (snake.CheckCollisionAt(nextHead, gridWidth, gridHeight))
                     break; // Game Over
@@ -62,7 +62,7 @@ namespace XmasGames.XmasSnake
                     present.Spawn(snake.Body);
                 }
 
-                // ===== Uppdatera snöflingor =====
+                // Update snowflakes
                 foreach (var snow in snowflakes)
                 {
                     snow.Y += snow.Speed;
@@ -73,30 +73,30 @@ namespace XmasGames.XmasSnake
                     }
                 }
 
-                // ===== Rita =====
+                // Draw
                 Raylib.BeginDrawing();
-                Raylib.ClearBackground(Color.SkyBlue); // bakgrund utanför spelrutan
+                Raylib.ClearBackground(Color.SkyBlue); // bakground
 
-                // Rita snöflingor
+                // Draw snowflakes
                 foreach (var snow in snowflakes)
                 {
                     Raylib.DrawCircle((int)snow.X, (int)snow.Y, 2, Color.White);
                 }
 
-                // Rita spelruta
+                // Draw game window
                 Raylib.DrawRectangle(offsetX, offsetY, gameWidth, gameHeight, Color.DarkBlue);
 
-                // Rita paket och orm
+                // Draw snake and pakage
                 present.Draw(gridSize, offsetX, offsetY);
                 snake.Draw(gridSize, offsetX, offsetY);
 
-                // Poäng
+                // Score
                 Raylib.DrawText($"Score: {score}", 470, 60, 20, Color.Black);
 
                 Raylib.EndDrawing();
             }
 
-            // Game Over-skärm
+            // Game Over-window
             Raylib.BeginDrawing();
             Raylib.ClearBackground(Color.Black);
             Raylib.DrawText("Game Over!", 200, 200, 40, Color.Red);
@@ -105,7 +105,6 @@ namespace XmasGames.XmasSnake
 
             Raylib.WaitTime(3.0f);
             Raylib.CloseWindow();
-
 
         }
     }

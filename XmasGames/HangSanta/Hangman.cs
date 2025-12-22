@@ -51,10 +51,8 @@ namespace XmasGames.HangSanta
         }
 
         public void DisplayWord() => DrawWord();
-
         public bool IsGameWon() => !HiddenLetters.Contains('_');
         public bool IsGameOver() => AttemptsLeft <= 0;
-
         public void DrawWord()
         {
             string display = string.Join(" ", HiddenLetters);
@@ -72,18 +70,18 @@ namespace XmasGames.HangSanta
             int startX = 100;
             int startY = 100;
 
-            // Stolpe, överliggare och rep
-            Raylib.DrawLine(startX + 100, startY + 300, startX + 100, startY, Color.Black); // stolpe
-            Raylib.DrawLine(startX + 100, startY, startX + 250, startY, Color.Black);       // överliggare
-            Raylib.DrawLine(startX + 250, startY, startX + 250, startY + 50, Color.Black);  // rep
-            Raylib.DrawLine(startX, startY + 300, startX + 200, startY + 300, Color.Black); // baslinje
+            // Pole, beam and rope
+            Raylib.DrawLine(startX + 100, startY + 300, startX + 100, startY, Color.Black); // Pole
+            Raylib.DrawLine(startX + 100, startY, startX + 250, startY, Color.Black);       // Beam
+            Raylib.DrawLine(startX + 250, startY, startX + 250, startY + 50, Color.Black);  // Rope
+            Raylib.DrawLine(startX, startY + 300, startX + 200, startY + 300, Color.Black); // baseline
 
             int wrongGuess = 6 - AttemptsLeft;
 
-            // Huvud
+            // Head
             if (wrongGuess > 0) Raylib.DrawCircleLines(startX + 250, startY + 80, 30, Color.Black);
 
-            // Julmössa
+            // Hat
             if (wrongGuess > 0)
             {
                 Raylib.DrawTriangle(
@@ -92,15 +90,15 @@ namespace XmasGames.HangSanta
                     new Vector2(startX + 250, startY + 30),
                     Color.Red
                 );
-                Raylib.DrawCircle(startX + 250, startY + 30, 5, Color.White); // tofs
+                Raylib.DrawCircle(startX + 250, startY + 30, 5, Color.White); // top of the hat
             }
-
-            // Kropp och armar/ben
-            if (wrongGuess > 1) Raylib.DrawLine(startX + 250, startY + 110, startX + 250, startY + 200, Color.Black); // kropp
-            if (wrongGuess > 2) Raylib.DrawLine(startX + 250, startY + 120, startX + 220, startY + 160, Color.Black); // vänster arm
-            if (wrongGuess > 3) Raylib.DrawLine(startX + 250, startY + 120, startX + 280, startY + 160, Color.Black); // höger arm
-            if (wrongGuess > 4) Raylib.DrawLine(startX + 250, startY + 200, startX + 220, startY + 250, Color.Black); // vänster ben
-            if (wrongGuess > 5) Raylib.DrawLine(startX + 250, startY + 200, startX + 280, startY + 250, Color.Black); // höger ben
+            
+            // Body and arms/legs
+            if (wrongGuess > 1) Raylib.DrawLine(startX + 250, startY + 110, startX + 250, startY + 200, Color.Black); // Body
+            if (wrongGuess > 2) Raylib.DrawLine(startX + 250, startY + 120, startX + 220, startY + 160, Color.Black); // Left arm
+            if (wrongGuess > 3) Raylib.DrawLine(startX + 250, startY + 120, startX + 280, startY + 160, Color.Black); // Right arm
+            if (wrongGuess > 4) Raylib.DrawLine(startX + 250, startY + 200, startX + 220, startY + 250, Color.Black); // Left leg
+            if (wrongGuess > 5) Raylib.DrawLine(startX + 250, startY + 200, startX + 280, startY + 250, Color.Black); // Right leg
         }
     }
 }

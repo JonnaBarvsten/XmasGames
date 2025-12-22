@@ -19,7 +19,3 @@ namespace XmasGame
         }
     }
 }
-    
-
-
-//Data Source=LAPTOP-DAN5ORO4;Database=XmasGamesDB; Integrated Security=True;Trust Server Certificate=True;

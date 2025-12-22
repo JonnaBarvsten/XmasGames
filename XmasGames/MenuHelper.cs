@@ -5,6 +5,8 @@ using System.Data;
 using System.Text;
 using XmasGames.Data;
 using XmasGames.HangSanta;
+using XmasGames.Models;
+using XmasGames.Xmas_Quiz;
 using XmasGames.XmasSnake;
 
 namespace XmasGames
@@ -50,10 +52,14 @@ namespace XmasGames
                     break;
 
                 case "Xmas Quiz":
+                    var quiz = new QuizService(context);
+                    quiz.StartQuiz(1);
+                    Console.Clear();
+                    StartMenu(); 
                     break;
 
                 case "Hang Santa":
-                    var game = new StartGame();
+                    var game = new StartGame(context);
                     game.Run();
                     Console.Clear();
                     StartMenu();

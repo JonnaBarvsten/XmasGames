@@ -135,3 +135,5 @@ namespace XmasGames.Xmas_Quiz
     }
 }
 // Handle life
+// Ganska svårt fler liv? än 1
+// Felmeddelande om man försöker skriva samma bokstav flera gånger? 
