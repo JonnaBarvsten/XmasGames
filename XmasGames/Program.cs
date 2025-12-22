@@ -3,7 +3,9 @@ using System;
 using System.Linq;
 using XmasGames;
 using XmasGames.Data;
+using XmasGames.HangSanta;
 using XmasGames.Models;
+using XmasGames.XmasSnake;
 
 namespace XmasGame
 {
@@ -13,7 +15,11 @@ namespace XmasGame
         {
             using var context = new XmasGamesDBContext();
 
-            MenuHelper.StartMenu(); 
+            MenuHelper.StartMenu();
         }
     }
 }
+    
+
+
+//Data Source=LAPTOP-DAN5ORO4;Database=XmasGamesDB; Integrated Security=True;Trust Server Certificate=True;

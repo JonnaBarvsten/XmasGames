@@ -4,6 +4,7 @@ using System.Data;
 using System.Text;
 using Spectre.Console;
 using XmasGames.HangSanta;
+using XmasGames.XmasSnake;
 
 namespace XmasGames
 {
@@ -53,6 +54,10 @@ namespace XmasGames
                     break;
 
                 case "Xmas Snake":
+                    var snakeGame = new StartSnake();
+                    snakeGame.runSnake();
+                    Console.Clear();
+                    StartMenu();
                     break;
 
                 case "Highscore":
