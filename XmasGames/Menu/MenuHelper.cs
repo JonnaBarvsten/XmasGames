@@ -7,8 +7,10 @@ using System.Text;
 using XmasGames.Data;
 using XmasGames.HangSanta;
 using XmasGames.Models;
+using XmasGames.PlayerGame;
 using XmasGames.Xmas_Quiz;
 using XmasGames.XmasSnake;
+
 
 namespace XmasGames.Menu
 {
@@ -65,21 +67,38 @@ namespace XmasGames.Menu
                 switch (choice)
                 {
                     case "Create New Player":
-                        var player = new PlayerService(context);
-                        player.CreatePlayer();
+                        var player = new PlayerService(context).CreatePlayer();
                         break;
 
                     case "Xmas Quiz":
+                        if (GameSession.CurrentPlayer == null)
+                        {
+                            Console.WriteLine("Please create a player first!");
+                            Console.ReadKey();
+                            break;
+                        }
                         var quiz = new QuizService(context);
                         quiz.StartQuiz(1);
                         break;
 
                     case "Hang Santa":
+                        if (GameSession.CurrentPlayer == null)
+                        {
+                            Console.WriteLine("Please create a player first!");
+                            Console.ReadKey();
+                            break;
+                        }
                         var game = new StartGame(context);
                         game.Run();
                         break;
 
                     case "Xmas Snake":
+                        if (GameSession.CurrentPlayer == null)
+                        {
+                            Console.WriteLine("Please create a player first!");
+                            Console.ReadKey();
+                            break;
+                        }
                         Countdown(5);
                         var snakeGame = new StartSnake();
                         snakeGame.runSnake();
