@@ -104,5 +104,6 @@ namespace XmasGames.HangSanta
         }
     }
 }
-
-
+// Handle Life
+// // Ganska svårt fler liv? än 1
+// Felmeddelande om man försöker skriva samma bokstav flera gånger? . 
