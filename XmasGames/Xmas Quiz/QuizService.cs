@@ -122,7 +122,7 @@ namespace XmasGames.Xmas_Quiz
                 Raylib.ClearBackground(new Color(173, 216, 230, 255));
 
                 Raylib.DrawText("Quiz finished! Santa says thanks for the help!", 50, 150, 40, Color.Red);
-                Raylib.DrawText($"Total Score - {totalScore}", 50, 250, 50, Color.Green);
+                Raylib.DrawText($"Total Score: {totalScore}", 50, 250, 50, Color.Green);
                 Raylib.DrawText("Press any key to return to main menu...", 50, 400, 30, Color.DarkBlue);
 
                 Raylib.EndDrawing();
