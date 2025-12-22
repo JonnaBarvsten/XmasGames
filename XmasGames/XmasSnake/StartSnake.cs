@@ -75,7 +75,7 @@ namespace XmasGames.XmasSnake
 
                 // Draw
                 Raylib.BeginDrawing();
-                Raylib.ClearBackground(Color.SkyBlue); // bakground
+                Raylib.ClearBackground(Color.SkyBlue); // background
 
                 // Draw snowflakes
                 foreach (var snow in snowflakes)
@@ -102,10 +102,8 @@ namespace XmasGames.XmasSnake
             Raylib.DrawText("Game Over!", 200, 200, 40, Color.Red);
             Raylib.DrawText($"Final Score: {score}", 200, 260, 30, Color.White);
             Raylib.EndDrawing();
-
             Raylib.WaitTime(3.0f);
-            Raylib.CloseWindow();
-
+            return;
         }
     }
 }

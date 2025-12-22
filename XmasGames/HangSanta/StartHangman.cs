@@ -1,7 +1,9 @@
-﻿using Raylib_cs;
+﻿using Microsoft.EntityFrameworkCore;
+using Raylib_cs;
 using System;
 using System.Collections.Generic;
 using XmasGames.Data;
+using XmasGames.Menu;
 using XmasGames.Models;
 namespace XmasGames.HangSanta
 {
@@ -85,8 +87,7 @@ namespace XmasGames.HangSanta
             }
 
             Raylib.WaitTime(3.0f);
-            Raylib.CloseWindow();
-            MenuHelper.StartMenu();
+            return;
         }
     }
 }
