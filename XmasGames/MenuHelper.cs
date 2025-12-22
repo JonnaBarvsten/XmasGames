@@ -1,8 +1,9 @@
-﻿using System;
+﻿using Spectre.Console;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Text;
-using Spectre.Console;
+using XmasGames.Data;
 using XmasGames.HangSanta;
 
 namespace XmasGames
@@ -11,6 +12,7 @@ namespace XmasGames
     {
         public static void StartMenu()
         {
+            using var context = new XmasGamesDBContext();
             Console.Clear();
 
             AnsiConsole.Write(
@@ -40,6 +42,10 @@ namespace XmasGames
             switch (choice) 
             {
                 case "Create New Player":
+                    var player = new PlayerService(context);
+                    player.CreatePlayer();
+                    Console.Clear();
+                    StartMenu(); 
                     break;
 
                 case "Xmas Quiz":
