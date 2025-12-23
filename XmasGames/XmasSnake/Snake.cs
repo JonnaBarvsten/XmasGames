@@ -8,7 +8,7 @@ namespace XmasGames.XmasSnake
     internal class Snake
     {
         public List<(int x, int y)> Body { get; private set; } = new List<(int x, int y)>();
-        public (int x, int y) Direction { get; private set; } = (1, 0); // startar åt höger
+        public (int x, int y) Direction { get; private set; } = (1, 0); 
 
         public Snake(int startX, int startY)
         {
@@ -45,6 +45,14 @@ namespace XmasGames.XmasSnake
 
             return false;
         }
+
+        public void ResetPosition(int startX, int startY)
+        {
+            Body.Clear();                
+            Body.Add((startX, startY));  
+            Direction = (0, 0);         
+        }
+
 
         public bool IsOnPosition((int x, int y) pos)
         {

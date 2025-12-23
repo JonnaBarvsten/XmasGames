@@ -37,7 +37,7 @@ namespace XmasGames.Xmas_Quiz
                 .ToList();
 
             var random = new Random();
-            questions = questions.OrderBy(q => random.Next()).Take(3).ToList();
+            questions = questions.OrderBy(q => random.Next()).Take(15).ToList();
 
             Raylib.InitWindow(1500, 600, "Xmas Quiz");
             Raylib.SetTargetFPS(60);
