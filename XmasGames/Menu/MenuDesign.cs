@@ -15,7 +15,7 @@ namespace XmasGames.Menu
         private int reindeerCount = 3;
         private int spacing = 100;
 
-        public void Draw(MenuHelper.StartMenu menu)
+        public void Draw(string[] options, int selectedIndex)
         {
             UpdateAnimation();
 
@@ -24,7 +24,7 @@ namespace XmasGames.Menu
 
             DrawTitle();
             DrawSledAndReindeer();
-            DrawMenu(menu);
+            DrawMenu(options, selectedIndex);
 
             Raylib.EndDrawing();
         }
@@ -44,16 +44,16 @@ namespace XmasGames.Menu
             Raylib.DrawText("Welcome to Xmas Games", 240, 100, 30, Color.Green);
         }
 
-        private void DrawMenu(MenuHelper.StartMenu menu)
+        private void DrawMenu(string[] options, int selectedIndex)
         {
-            for (int i = 0; i < menu.Options.Length; i++)
+            for (int i = 0; i < options.Length; i++)
             {
-                bool selected = i == menu.SelectedIndex;
+                bool selected = i == selectedIndex;
                 Color color = selected ? Color.Red : Color.RayWhite;
                 string prefix = selected ? "> " : "  ";
 
                 Raylib.DrawText(
-                    prefix + menu.Options[i],
+                    prefix + options[i],
                     340,
                     350 + i * 35,
                     24,
@@ -98,25 +98,17 @@ namespace XmasGames.Menu
             float time = (float)Raylib.GetTime();
             float legSwing = MathF.Sin(time * 8f + phase) * 6f;
 
-            // Body
             Raylib.DrawEllipse(x, y, 30, 18, Color.Brown);
-
-            // Head
             Raylib.DrawCircle(x + 30, y - 10, 10, Color.Brown);
-
-            // Eye
             Raylib.DrawCircle(x + 33, y - 12, 2, Color.Black);
 
-            // Mule (red)
             float glow = MathF.Sin(time * 6f + phase) * 2f;
             Raylib.DrawCircle(x + 40, y - 8, 4 + glow, Color.Red);
 
-            // Leg
             DrawLeg(x - 10, y + 15, legSwing);
             DrawLeg(x + 5, y + 15, -legSwing);
             DrawLeg(x + 20, y + 15, legSwing);
 
-            // Horn
             Raylib.DrawLine(x + 30, y - 20, x + 25, y - 35, Color.DarkBrown);
             Raylib.DrawLine(x + 30, y - 20, x + 35, y - 35, Color.DarkBrown);
         }

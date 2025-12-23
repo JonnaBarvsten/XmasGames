@@ -14,126 +14,117 @@ using XmasGames.XmasSnake;
 
 namespace XmasGames.Menu
 {
-    internal class MenuHelper
+    public static class MenuHelper
     {
-            private XmasGamesDBContext ?context;
+        private static XmasGamesDBContext context;
 
-        public class StartMenu
+        private static readonly string[] Options =
         {
-            public string[] Options { get; private set; }
+            "Create New Player",
+            "Xmas Quiz",
+            "Hang Santa",
+            "Xmas Snake",
+            "Highscore",
+            "Exit"
+        };
 
-            // Index for current option
-            public int SelectedIndex { get; private set; } = 0;
+        private static int selectedIndex;
+        private static MenuDesign? menuDesign;
 
-            private XmasGamesDBContext context;
+        // Main method to start the menu
+        public static void StartMenu(XmasGamesDBContext dbContext)
+        {
+            context = dbContext;
+            selectedIndex = 0;
+            menuDesign = new MenuDesign();
 
-            // constructor
-            public StartMenu(XmasGamesDBContext dbContext)
+            while (!Raylib.WindowShouldClose())
             {
-                context = dbContext;
-
-                Options = new string[]
-                {
-                    "Create New Player",
-                    "Xmas Quiz",
-                    "Hang Santa",
-                    "Xmas Snake",
-                    "Highscore",
-                    "Exit"
-                };
-            }
-
-            public void MoveUp()
-            {
-                SelectedIndex = (SelectedIndex - 1 + Options.Length) % Options.Length;
-            }
-
-            public void MoveDown()
-            {
-                SelectedIndex = (SelectedIndex + 1) % Options.Length;
-            }
-
-            // get current option
-            public string GetSelectedOption()
-            {
-                return Options[SelectedIndex];
-            }
-
-            // menu choice execution
-            public void ExecuteSelected()
-            {
-                string choice = GetSelectedOption();
-
-                switch (choice)
-                {
-                    case "Create New Player":
-                        var player = new PlayerService(context).CreatePlayer();
-                        break;
-
-                    case "Xmas Quiz":
-                        if (GameSession.CurrentPlayer == null)
-                        {
-                            Console.WriteLine("Please create a player first!");
-                            Console.ReadKey();
-                            break;
-                        }
-                        var quiz = new QuizService(context);
-                        quiz.StartQuiz(1);
-                        break;
-
-                    case "Hang Santa":
-                        if (GameSession.CurrentPlayer == null)
-                        {
-                            Console.WriteLine("Please create a player first!");
-                            Console.ReadKey();
-                            break;
-                        }
-                        var game = new StartGame(context);
-                        game.Run();
-                        break;
-
-                    case "Xmas Snake":
-                        if (GameSession.CurrentPlayer == null)
-                        {
-                            Console.WriteLine("Please create a player first!");
-                            Console.ReadKey();
-                            break;
-                        }
-                        Countdown(5);
-                        var snakeGame = new StartSnake();
-                        snakeGame.runSnake();
-                        break;
-
-                    case "Highscore":
-                        Console.WriteLine("Visar Highscore...");
-                        // lägg logik här
-                        break;
-
-                    case "Exit":
-                        Environment.Exit(0);
-                        break;
-                }
+                HandleInput();
+                Draw();
             }
         }
+
+        // Input and logic handling
+        private static void HandleInput()
+        {
+            if (Raylib.IsKeyPressed(KeyboardKey.Up))
+                selectedIndex = (selectedIndex - 1 + Options.Length) % Options.Length;
+
+            if (Raylib.IsKeyPressed(KeyboardKey.Down))
+                selectedIndex = (selectedIndex + 1) % Options.Length;
+
+            if (Raylib.IsKeyPressed(KeyboardKey.Enter))
+                StartGame();
+        }
+        private static void Draw()
+        {
+            menuDesign?.Draw(Options, selectedIndex);
+        }
+
+
+        // Start game based on selected option
+        private static void StartGame()
+        {
+            switch (Options[selectedIndex])
+            {
+                case "Create New Player":
+                    var player = new PlayerService(context).CreatePlayer();
+                    break;
+
+                case "Xmas Quiz":
+                    if (GameSession.CurrentPlayer == null)
+                    {
+                        Console.WriteLine("Please create a player first!");
+                        Console.ReadKey();
+                        break;
+                    }
+                    new QuizService(context).StartQuiz(1);
+                    break;
+
+                case "Hang Santa":
+                    if (GameSession.CurrentPlayer == null)
+                    {
+                        Console.WriteLine("Please create a player first!");
+                        Console.ReadKey();
+                        break;
+                    }
+                    new StartGame(context).Run();
+                    break;
+
+                case "Xmas Snake":
+                    if (GameSession.CurrentPlayer == null)
+                    {
+                        Console.WriteLine("Please create a player first!");
+                        Console.ReadKey();
+                        break;
+                    }
+                    Countdown(3);
+                    new StartSnake().runSnake();
+                    break;
+
+                case "Highscore":
+                    Console.WriteLine("Visar Highscore...");
+                    break;
+
+                case "Exit":
+                    Environment.Exit(0);
+                    break;
+            }
+        }
+
+        //Countdown for starting games
         private static void Countdown(int seconds)
         {
             for (int i = seconds; i > 0; i--)
             {
-                double startTime = Raylib.GetTime();
+                double start = Raylib.GetTime();
 
-                while (Raylib.GetTime() - startTime < 1)
+                while (Raylib.GetTime() - start < 1)
                 {
                     Raylib.BeginDrawing();
                     Raylib.ClearBackground(Raylib_cs.Color.Black);
-
-                    Raylib.DrawText(
-                        i.ToString(),
-                        Raylib.GetScreenWidth() / 2 - 20,
-                        Raylib.GetScreenHeight() / 2 - 40,
-                        80,
-                        Raylib_cs.Color.Red
-                    );
-
+                    Raylib.DrawText(i.ToString(), 430, 260, 80, Raylib_cs.Color.Red);
                     Raylib.EndDrawing();
                 }
             }

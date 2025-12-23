@@ -44,6 +44,12 @@ namespace XmasGames.PlayerGame
                 {
                     playerName = playerName[..^1];
                 }
+
+                // Lade till denna if-sats
+                if (Raylib.IsKeyPressed(KeyboardKey.Enter) && playerName.Length > 0)
+                {
+                    nameEntered = true;
+                }
             }
 
             if (Raylib.WindowShouldClose())
