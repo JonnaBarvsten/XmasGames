@@ -100,8 +100,8 @@ namespace XmasGames.Menu
                         Console.ReadKey();
                         break;
                     }
-                    Countdown(3);
-                    new StartSnake().runSnake();
+                    Countdown(5);
+                    new StartSnake(context).runSnake();
                     break;
 
                 case "Highscore":
