@@ -2,12 +2,15 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using XmasGames.Data;
 using XmasGames.HangSanta;
+using XmasGames.PlayerGame;
 
 namespace XmasGames.XmasSnake
 {
     internal class StartSnake
     {
+        private const int SnakeMiniGameId = 3;
         public void runSnake()
         {
             int screenWidth = 800;
@@ -103,6 +106,14 @@ namespace XmasGames.XmasSnake
             Raylib.DrawText($"Final Score: {score}", 200, 260, 30, Color.White);
             Raylib.EndDrawing();
             Raylib.WaitTime(3.0f);
+
+            // Save snake-score to database
+            using (var context = new XmasGamesDBContext())
+            {
+                var gameResultService = new GameResultService(context);
+                gameResultService.SaveGameResult(score, SnakeMiniGameId, "Xmas Snake");
+            }
+
             return;
         }
     }

@@ -3,13 +3,15 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using XmasGames.Data;
-using XmasGames.Models;
 using XmasGames.HangSanta;
+using XmasGames.Models;
+using XmasGames.PlayerGame;
 
 namespace XmasGames.Xmas_Quiz
 {
     internal class QuizService
     {
+        private const int QuizMiniGameId = 1;
         private readonly XmasGamesDBContext _context;
 
         public QuizService(XmasGamesDBContext context)
@@ -131,6 +133,11 @@ namespace XmasGames.Xmas_Quiz
                     scoreScreen = false;
             }
             Raylib.WaitTime(3.0f);
+            using (var context = new XmasGamesDBContext())
+            {
+                var gameResultService = new GameResultService(context);
+                gameResultService.SaveGameResult(totalScore, QuizMiniGameId, "Xmas Quiz");
+            }
             return;
         }
     }

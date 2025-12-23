@@ -5,10 +5,12 @@ using System.Collections.Generic;
 using XmasGames.Data;
 using XmasGames.Menu;
 using XmasGames.Models;
+using XmasGames.PlayerGame;
 namespace XmasGames.HangSanta
 {
     internal class StartGame
     {
+        private const int HangSantaMiniGameId = 2;
         private readonly XmasGamesDBContext _context;
         public StartGame(XmasGamesDBContext context) 
         {
@@ -87,6 +89,11 @@ namespace XmasGames.HangSanta
             }
 
             Raylib.WaitTime(3.0f);
+            using (var context = new XmasGamesDBContext())
+            {
+                var gameResultService = new GameResultService(context);
+                gameResultService.SaveGameResult(totalScore, HangSantaMiniGameId, "HangSanta");
+            }
             return;
         }
     }

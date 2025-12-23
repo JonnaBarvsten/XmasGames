@@ -10,6 +10,7 @@ using XmasGames.Models;
 using XmasGames.PlayerGame;
 using XmasGames.Xmas_Quiz;
 using XmasGames.XmasSnake;
+using XmasGames.Menu;
 
 
 namespace XmasGames.Menu
@@ -104,7 +105,11 @@ namespace XmasGames.Menu
                     break;
 
                 case "Highscore":
-                    Console.WriteLine("Visar Highscore...");
+                    using (var hsContext = new XmasGamesDBContext())
+                    {
+                        var gameResultService = new GameResultService(hsContext);
+                        HighScore.ShowTopHighscores(gameResultService, 10);
+                    }
                     break;
 
                 case "Exit":
